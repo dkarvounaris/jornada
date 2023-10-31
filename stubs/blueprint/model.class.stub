@@ -1,0 +1,11 @@
+<?php /** @noinspection ClassOverridesFieldOfSuperClassInspection */
+
+namespace {{ namespace }};
+
+{{ imports }}
+
+{{ class_phpdoc }}
+class {{ class }} extends Model
+{
+    use HasFactory;
+}
