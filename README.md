@@ -7,7 +7,7 @@ Jornada is the idea of an multi-tenant eCommerce platform, modular enough to be 
 
 I decided to open-source Jornada, to showcase approaches of Domain Driven Design with Laravel and for learning purposes for others.
 
-So far, examples can be found, how to modify parts of a standard Laravel application, to do things different and yet stay within Laravel style. 
+So far, examples can be found, how to modify parts of a standard Laravel application, to do things different and yet stay within Laravel style. Included is also creating a custom CLI based on artisan, as well how to leverage code generation to superspeed early development and decision changes. 
 
 Some documentation already provides insights on the approaches taken. 
 
