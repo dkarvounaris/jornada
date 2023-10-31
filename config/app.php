@@ -1,5 +1,6 @@
 <?php
 
+use Core\Providers\HubServiceProvider;
 use Illuminate\Support\Facades\Facade;
 
 return [
@@ -15,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Laravel'),
+    'name' => env('APP_NAME', 'Jornada'),
 
     /*
     |--------------------------------------------------------------------------
@@ -191,9 +192,11 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        // App\Core\Providers\BroadcastServiceProvider::class,
+        Core\Providers\EnvironmentServiceProvider::class,
         App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
+        Core\Providers\RouteServiceProvider::class,
+        Core\Providers\TranslationServiceProvider::class,
 
     ],
 
@@ -212,4 +215,94 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloaded Local Service Providers
+    |--------------------------------------------------------------------------
+    |
+    | The service providers listed here will be automatically loaded on the
+    | request to your application, only when the environment is "local".
+    |
+    | Mostly used to load development helpers (like the IDE Helper), et ce-tera
+    |
+    */
+
+    'local_providers' => [
+
+//        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloaded Debug Service Providers
+    |--------------------------------------------------------------------------
+    |
+    | The service providers listed here will be automatically loaded on the
+    | request to your application, only when the environment is "local" and app debugging active.
+    |
+    | Mostly used to load debug helpers (like Telescope or DebugBar), optimization tools, et ce-tera
+    |
+    */
+
+    'debug_providers' => [
+
+//        Barryvdh\Debugbar\ServiceProvider::class,
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Local Class Aliases
+    |--------------------------------------------------------------------------
+    |
+    | This array of class aliases will be registered when this application
+    | is started. These are only loaded in local environments.
+    |
+    */
+
+    'local_aliases' => [
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Local Class Aliases
+    |--------------------------------------------------------------------------
+    |
+    | This array of class aliases will be registered when this application
+    | is started. These are only loaded in local environments with app debugging active.
+    |
+    */
+
+    'debug_aliases' => [
+
+        //        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+
+    ],
+
+    // TODO: Implement feature to load production-only providers, once needed (keeping unused config entry as reminder)
+    'production_providers' => [
+
+        // Contains your 'production' environment providers
+        // Great for when you only want to get analytics or
+        // bug reports in production and disable the provider
+        // entirely when developing.
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Ignore Autoloaded Environment-Specific Providers In Console
+    |--------------------------------------------------------------------------
+    |
+    | The service providers listed here will be ignored, when running in console
+    | and otherwise automatically loaded on the specific environment.
+    |
+    */
+
+    'console_ignore_providers' => [
+        HubServiceProvider::class
+    ]
 ];

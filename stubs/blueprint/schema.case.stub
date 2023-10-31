@@ -1,0 +1,2 @@
+    public const {{ field }}  = '{{ column }}';
+    case {{ case }} = self::{{ field }};

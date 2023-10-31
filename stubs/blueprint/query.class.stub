@@ -1,0 +1,12 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ schema }} as {{ model_name }}Schema;
+use {{ model }} as {{ model_name }}Model;
+
+{{ class_phpdoc }}
+final class {{ class }}
+{
+    {{ body }}
+}

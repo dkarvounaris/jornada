@@ -1,0 +1,13 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ schema }};
+use {{ model }} as {{ model_name }}Model;
+use {{ query }} as {{ model_name }}Query;
+
+{{ class_phpdoc }}
+final class {{ class }}
+{
+    {{ body }}
+}

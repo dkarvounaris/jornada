@@ -1,0 +1,93 @@
+models:
+  Product:
+    meta:
+      table: products
+    id_product: mediumIncrements comment('A main product represented and used for associating descriptions, content, features and media')
+    unique_by_brand_mpn_id: foreign:UniqueProduct
+    brand_id: foreign:brand
+
+  UniqueProduct:
+    id_unique_by_brand_mpn: mediumIncrements comment('An unique product defined by what makes it unique, used for matching')
+    brand_id: foreign:brand
+    mpn: string:60
+    ean: string:13
+    mpn_list: foreign:ProductMpnList
+    ean_list: foreign:ProductEanList
+
+  Product/Variation:
+    id_variation: mediumIncrements comment('A variation to a main product')
+    product_id: foreign:Product
+
+  Product/Inventory:
+    id_inventory: bigIncrements comment('A main product, further diversified by condition and variation, still identified by either Product or UniqueProduct as the central product for publishing, as no longer strictly defined by the systems logic or data structures')
+    shop_id: foreign:Shop
+    product_id: foreign:Product
+    condition_id: foreign:Condition
+    variation_id: foreign:variation
+    supplier_id: foreign:supplier
+    description_id: foreign:Product/Description
+    #supplier_product_id: foreign:SupplierProducts
+
+  Product/Inventory/Supply:
+    inventory_id: foreign:Product/Inventory
+    supplier_id: foreign:supplier comment('We add supplier_id in Inventory as well Supply too, as the shop owner may have the option, to publish have either Inveotory or Supply unique by supplier, as that to respectively publish either only one or all his supplier prices and stocks, as no longer strictly defined by the systems logic or data structures')
+    shop_id: foreign:Shop
+    stock: integer
+    cost: decimal(10,2)
+    price: decimal(10,2)
+    shipping: decimal(10,2)
+
+  Product/Inventory/State:
+    inventory_id: foreign:Product/Inventory
+    supply_id: foreign:Product/Inventory
+    live_supplier_product_id: foreign:Supplier/Product
+    is_active: bool
+    is_blocked: bool
+    is_live: bool
+    is_published: bool
+
+  Supplier/Product:
+    product_id: foreign:Product comment("The product mapped to the supplier-imported product")
+    #supplier's data...
+
+  Product/Description:
+    id: bigIncrements
+    product_id: foreign:Product
+    language_id: foreign:Language
+    name: string:160
+    title: string:400
+    short_description: text
+    description: longtext
+    source: enum
+
+  Product/Condition:
+    id_condition: smallIncrements comment('A condition for Product/Inventory. However, Product or UniqueProduct can be used, to either publish different conditions as options of a product or as unique products, controlled by the shop owner.')
+    language_id: foreign:language
+    condition: foreign:conditions
+    description: string:200
+
+  Product/Media:
+    id_media: bigIncrements
+    product_id: foreign:Product
+    type: string
+    attachment_id: foreign:Attachment comment('Indirectly assigning media to unique attachments possible to be linked many times (they may use size and checksum for uniqueness), allows us to store duplicate content just once - huge storage saver!')
+
+  Published/Product:
+    product_id: foreign:Product
+    shop_id: foreign:Shop
+    published_at: nullable timestamp
+
+  Published/Product/Inventory:
+    inventory_id: foreign:Product
+    shop_id: foreign:Shop
+    is_published: bool
+    published_at: nullable timestamp
+    published_first: nullable datetime
+    last_stock_update: nullable datetime
+    published_media_at: nullable datetime
+    published_description_at: nullable datetime
+
+  Published/Product/Media:
+    media_id: foreign:Product
+    shop_id: foreign:Shop
+    published_at: nullable timestamp

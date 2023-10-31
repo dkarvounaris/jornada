@@ -1,0 +1,13 @@
+<?php
+/** @noinspection PhpMissingDocCommentInspection */
+/** @noinspection PhpConstantNamingConventionInspection */
+
+namespace {{ namespace }};
+
+{{ class_phpdoc }}
+enum {{ class }}: string /* PHP8.2 readonly */
+{
+    public const __table = '{{ table }}';
+
+    {{ body }}
+}

@@ -5,18 +5,33 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+final class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Call the application's environment-specific database seeder.
+     *
+     * Tip: For separating suites by feature epics, ie. for faster testing, other conditions
+     * and separate testing seed suites can be created and may be triggered individually by env() or other conditions
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->runSystemSeeds();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(
+            match (app()->environment()) {
+                'local' => LocalDatabaseSeeder::class,
+                'production' => ProductionDatabaseSeeder::class,
+                'staging' => StagingDatabaseSeeder::class,
+                'testing' => TestingDatabaseSeeder::class
+            }
+        );
+    }
+
+    /**
+     * Call the application's system seeder (always required seeds).
+     */
+    protected function runSystemSeeds(): void
+    {
+        $this->call(SystemDatabaseSeeder::class);
     }
 }
